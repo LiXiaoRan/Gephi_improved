@@ -69,7 +69,6 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
     private float area;
     private double gravity;
     private double speed;
-    private int iterateCountNum; //控制迭代次数
 
 
     public FruchtermanReingold(LayoutBuilder layoutBuilder) {
@@ -85,17 +84,11 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
 
     @Override
     public void initAlgo() {
-        iterateCountNum=0;
-        System.out.println("初始化initAlgo");
     }
 
     @Override
     public void goAlgo() {
-        iterateCountNum++;
-        System.out.println("迭代次数："+iterateCountNum);
-        if(iterateCountNum>=500){
-            endAlgo();
-        }
+
         this.graph = graphModel.getGraphVisible();
         graph.readLock();
         try {
@@ -192,7 +185,6 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
             }
         } finally {
             graph.readUnlockAll();
-            System.out.println("迭代次数为 "+iterateCountNum+" 布局终止");
         }
     }
 

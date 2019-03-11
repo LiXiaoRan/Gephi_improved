@@ -81,7 +81,6 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
     private double energy0;
     private double energy;
     private Graph graph;
-    private int iterateCountNum;
 
     public YifanHuLayout(LayoutBuilder layoutBuilder, Displacement displacement) {
         super(layoutBuilder);
@@ -89,11 +88,8 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
     } 
 
     protected void postAlgo() {
-        iterateCountNum++;
 //        System.out.println("迭代次数："+iterateCountNum);
-        if(iterateCountNum>=200){
-            endAlgo(); 
-        }
+
         updateStep();
         if (Math.abs((energy - energy0) / energy) < getConvergenceThreshold()) {
             setConverged(true);
@@ -234,7 +230,6 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
 
     @Override
     public void initAlgo() {
-        iterateCountNum=0;
         if (graphModel == null) {
             return;
         }
