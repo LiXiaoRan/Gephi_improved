@@ -92,6 +92,7 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
 
         updateStep();
         if (Math.abs((energy - energy0) / energy) < getConvergenceThreshold()) {
+            System.out.println("胡一凡布局 setConverged 收敛成功");
             setConverged(true);
         }
         
