@@ -164,6 +164,8 @@ public class LayoutControllerImpl implements LayoutController {
         private ProgressTicket progressTicket;
         private final Integer iterations;
         private int iterateCountNum;
+        private long startTime;
+        private long endTime;
 
         public LayoutRun(Layout layout) {
             this.layout = layout;
@@ -180,6 +182,7 @@ public class LayoutControllerImpl implements LayoutController {
             Progress.setDisplayName(progressTicket, layout.getBuilder().getName());
             Progress.start(progressTicket);
             iterateCountNum=0;
+            startTime=System.currentTimeMillis();
             layout.initAlgo();
             long i = 0;
             while (layout.canAlgo() && !stopRun) {
@@ -196,6 +199,9 @@ public class LayoutControllerImpl implements LayoutController {
             }
             System.out.println("跳出了run循环");
             layout.endAlgo();
+            endTime=System.currentTimeMillis();
+            System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)+"ms");
+            
             if (i > 1) {
                 Progress.finish(progressTicket, NbBundle.getMessage(LayoutControllerImpl.class, "LayoutRun.end", layout.getBuilder().getName(), i));
             } else {
