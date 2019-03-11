@@ -90,9 +90,9 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
 
     protected void postAlgo() {
         iterateCountNum++;
-        System.out.println("迭代次数："+iterateCountNum);
-        if(iterateCountNum>=500){
-            endAlgo();
+//        System.out.println("迭代次数："+iterateCountNum);
+        if(iterateCountNum>=200){
+            endAlgo(); 
         }
         updateStep();
         if (Math.abs((energy - energy0) / energy) < getConvergenceThreshold()) {
