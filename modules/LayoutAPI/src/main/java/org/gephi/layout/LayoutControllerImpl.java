@@ -166,7 +166,7 @@ public class LayoutControllerImpl implements LayoutController {
         private int iterateCountNum;
         private long startTime;
         private long endTime;
-
+        private int maxIterate=500;
         public LayoutRun(Layout layout) {
             this.layout = layout;
             this.iterations = null;
@@ -193,14 +193,14 @@ public class LayoutControllerImpl implements LayoutController {
                     break;
                 }
                 System.out.println("迭代次数："+iterateCountNum);
-                if(iterateCountNum>=200){
+                if(iterateCountNum>=maxIterate){
                    break; 
                 }
             }
             System.out.println("跳出了run循环");
             layout.endAlgo();
             endTime=System.currentTimeMillis();
-            System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)+"ms");
+            System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)/1000+"s");
             
             if (i > 1) {
                 Progress.finish(progressTicket, NbBundle.getMessage(LayoutControllerImpl.class, "LayoutRun.end", layout.getBuilder().getName(), i));
