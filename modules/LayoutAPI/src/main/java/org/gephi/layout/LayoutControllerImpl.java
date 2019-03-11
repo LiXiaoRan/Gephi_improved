@@ -200,7 +200,7 @@ public class LayoutControllerImpl implements LayoutController {
             System.out.println("跳出了run循环");
             layout.endAlgo();
             endTime=System.currentTimeMillis();
-            System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)/1000+"s");
+            System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)/1000.0+"s");
             
             if (i > 1) {
                 Progress.finish(progressTicket, NbBundle.getMessage(LayoutControllerImpl.class, "LayoutRun.end", layout.getBuilder().getName(), i));
