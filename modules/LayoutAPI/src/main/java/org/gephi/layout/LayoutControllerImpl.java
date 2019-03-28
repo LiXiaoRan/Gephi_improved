@@ -41,6 +41,7 @@ Portions Copyrighted 2011 Gephi Consortium.
  */
 package org.gephi.layout;
 
+import javax.swing.JOptionPane;
 import org.gephi.layout.api.LayoutController;
 import org.gephi.layout.api.LayoutModel;
 import org.gephi.layout.spi.Layout;
@@ -166,7 +167,7 @@ public class LayoutControllerImpl implements LayoutController {
         private int iterateCountNum;
         private long startTime;
         private long endTime;
-        private int maxIterate=500;
+        private int maxIterate=500;//最大迭代次数
         public LayoutRun(Layout layout) {
             this.layout = layout;
             this.iterations = null;
@@ -201,7 +202,7 @@ public class LayoutControllerImpl implements LayoutController {
             layout.endAlgo();
             endTime=System.currentTimeMillis();
             System.out.println(iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)/1000.0+"s");
-            
+            JOptionPane.showMessageDialog(null, iterateCountNum+" 次迭代所消耗的时间："+(endTime-startTime)/1000.0+"s", "迭代终止 ",JOptionPane.ERROR_MESSAGE);
             if (i > 1) {
                 Progress.finish(progressTicket, NbBundle.getMessage(LayoutControllerImpl.class, "LayoutRun.end", layout.getBuilder().getName(), i));
             } else {
