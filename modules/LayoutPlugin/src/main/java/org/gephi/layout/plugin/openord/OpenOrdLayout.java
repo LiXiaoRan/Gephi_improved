@@ -45,6 +45,7 @@ import gnu.trove.iterator.TIntFloatIterator;
 import gnu.trove.map.hash.TIntFloatHashMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CyclicBarrier;
@@ -53,6 +54,7 @@ import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.GraphView;
 import org.gephi.graph.api.Interval;
+import org.gephi.layout.plugin.MyArray2CSV;
 import org.gephi.layout.spi.Layout;
 import org.gephi.layout.spi.LayoutBuilder;
 import org.gephi.layout.spi.LayoutProperty;
@@ -86,6 +88,8 @@ public class OpenOrdLayout implements Layout, LongTask {
     private CyclicBarrier barrier;
     private Graph graph;
     private boolean firstIteration = true;
+
+    private String fileWriterName="FR_layout\\OpenOrd"+"Layout"+".csv";
 
     public OpenOrdLayout(LayoutBuilder builder) {
         this.builder = builder;
@@ -260,7 +264,7 @@ public class OpenOrdLayout implements Layout, LongTask {
             }
             firstIteration = false;
         }
-
+        System.out.println("org.gephi.layout.plugin.openord.OpenOrdLayout.goAlgo()");
         combine.waitForIteration();
     }
 
@@ -268,6 +272,18 @@ public class OpenOrdLayout implements Layout, LongTask {
     public void endAlgo() {
         running = false;
         combine = null;
+        ArrayList<ArrayList<String>> alldata=new ArrayList<ArrayList<String>>();
+        try {
+            for (org.gephi.graph.api.Node n : graph.getNodes()) {
+                alldata.add(new ArrayList<String>(Arrays.asList(n.getId().toString(),String.valueOf(n.x()),String.valueOf(n.y()))));
+            }
+        } catch (Exception e) {
+        }finally{
+            //将布局数据保存成CSV文件
+            MyArray2CSV.Array2CSV(alldata, fileWriterName);
+        }
+        
+        
     }
 
     private float normalizeWeight(float weight, float highestSimilarity) {
