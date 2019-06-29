@@ -57,7 +57,9 @@ import org.gephi.layout.spi.LayoutProperty;
 import org.openide.util.NbBundle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import org.gephi.layout.plugin.MyArray2CSV;
 import org.openide.util.Exceptions;
 
 /**
@@ -81,6 +83,9 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
     private double energy0;
     private double energy;
     private Graph graph;
+    
+    private String fileWriterName="FR_layout\\YifanHu"+"Layout"+".csv";
+
 
     public YifanHuLayout(LayoutBuilder layoutBuilder, Displacement displacement) {
         super(layoutBuilder);
@@ -252,11 +257,15 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
     @Override
     public void endAlgo() {
         graph.readLock();
+        ArrayList<ArrayList<String>> alldata=new ArrayList<ArrayList<String>>();
         try {
             for (Node n : graph.getNodes()) {
+                alldata.add(new ArrayList<String>(Arrays.asList(n.getId().toString(),String.valueOf(n.x()),String.valueOf(n.y()))));
                 n.setLayoutData(null);
             }
         } finally {
+            //将布局数据保存成CSV文件
+            MyArray2CSV.Array2CSV(alldata, fileWriterName);
             graph.readUnlockAll();
         }
     }

@@ -194,9 +194,9 @@ public class LayoutControllerImpl implements LayoutController {
                     break;
                 }
                 System.out.println("迭代次数："+iterateCountNum);
-                if(iterateCountNum>=maxIterate){
-                   break; 
-                }
+//                if(iterateCountNum>=maxIterate){
+//                   break; 
+//                }
             }
             System.out.println("跳出了run循环");
             layout.endAlgo();

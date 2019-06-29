@@ -76,7 +76,7 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
     private double speed;
     
     private List<ForceVectorNodeLayoutData> NodePosList;
-    private String fileWriterName="FruchtermanReingold"+"Layout"+".csv";
+    private String fileWriterName="FR_layout\\FruchtermanReingold"+"Layout"+".csv";
 
     public FruchtermanReingold(LayoutBuilder layoutBuilder) {
         super(layoutBuilder);
@@ -194,9 +194,11 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
                 alldata.add(new ArrayList<String>(Arrays.asList(n.getId().toString(),String.valueOf(n.x()),String.valueOf(n.y()))));
                 n.setLayoutData(null);
             }
+            
+        } finally {
             //将布局数据保存成CSV文件
             MyArray2CSV.Array2CSV(alldata, fileWriterName);
-        } finally {
+            
             graph.readUnlockAll();
         }
     }
