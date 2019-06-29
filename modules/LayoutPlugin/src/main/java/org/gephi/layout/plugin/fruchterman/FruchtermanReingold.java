@@ -41,6 +41,9 @@
  */
 package org.gephi.layout.plugin.fruchterman;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.Graph;
 import org.gephi.graph.api.Node;
@@ -52,7 +55,9 @@ import org.gephi.layout.spi.LayoutProperty;
 import org.openide.util.NbBundle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import org.gephi.layout.plugin.MyArray2CSV;
 import org.openide.util.Exceptions;
 
 /**
@@ -69,7 +74,9 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
     private float area;
     private double gravity;
     private double speed;
-
+    
+    private List<ForceVectorNodeLayoutData> NodePosList;
+    private String fileWriterName="FruchtermanReingold"+"Layout"+".csv";
 
     public FruchtermanReingold(LayoutBuilder layoutBuilder) {
         super(layoutBuilder);
@@ -169,6 +176,7 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
                     float limitedDist = Math.min(maxDisplace * ((float) speed / SPEED_DIVISOR), dist);
                     n.setX(n.x() + xDist / dist * limitedDist);
                     n.setY(n.y() + yDist / dist * limitedDist);
+                    
                 }
             }
         } finally {
@@ -179,15 +187,20 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
     @Override
     public void endAlgo() {
         graph.readLock();
+        ArrayList<ArrayList<String>> alldata=new ArrayList<ArrayList<String>>();
         try {
             for (Node n : graph.getNodes()) {
+                System.out.println("org.gephi.layout.plugin.fruchterman.FruchtermanReingold.endAlgo()"+n.getId());
+                alldata.add(new ArrayList<String>(Arrays.asList(n.getId().toString(),String.valueOf(n.x()),String.valueOf(n.y()))));
                 n.setLayoutData(null);
             }
+            //将布局数据保存成CSV文件
+            MyArray2CSV.Array2CSV(alldata, fileWriterName);
         } finally {
             graph.readUnlockAll();
         }
     }
-
+      
     @Override
     public boolean canAlgo() {
         return true;
