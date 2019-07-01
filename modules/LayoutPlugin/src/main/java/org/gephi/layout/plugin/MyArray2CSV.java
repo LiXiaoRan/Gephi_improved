@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class MyArray2CSV {
     //导出到csv文件
-    private static String FileAbstractPathString="E:\\IWork\\GPU-accelerate\\builds\\linux\\gephiResult_csv\\";//绝对路径
+    private static String FileAbstractPathString="E:\\IWork\\GPU-accelerate\\builds\\linux\\gephiResult_csv\\twitter_combined\\";//绝对路径
       public static void Array2CSV(ArrayList<ArrayList<String>> data, String path)
       {
           try {

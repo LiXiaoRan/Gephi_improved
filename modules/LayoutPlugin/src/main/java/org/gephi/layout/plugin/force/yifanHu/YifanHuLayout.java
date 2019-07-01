@@ -84,7 +84,7 @@ public class YifanHuLayout extends AbstractLayout implements Layout {
     private double energy;
     private Graph graph;
     
-    private String fileWriterName="FR_layout\\YifanHu"+"Layout"+".csv";
+    private String fileWriterName="YifanHu"+"Layout"+".csv";
 
 
     public YifanHuLayout(LayoutBuilder layoutBuilder, Displacement displacement) {

@@ -76,7 +76,7 @@ public class FruchtermanReingold extends AbstractLayout implements Layout {
     private double speed;
     
     private List<ForceVectorNodeLayoutData> NodePosList;
-    private String fileWriterName="FR_layout\\FruchtermanReingold"+"Layout"+".csv";
+    private String fileWriterName="FruchtermanReingold"+"Layout"+".csv";
 
     public FruchtermanReingold(LayoutBuilder layoutBuilder) {
         super(layoutBuilder);

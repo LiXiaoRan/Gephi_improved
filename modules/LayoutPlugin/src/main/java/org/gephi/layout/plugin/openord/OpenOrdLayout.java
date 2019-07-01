@@ -89,7 +89,7 @@ public class OpenOrdLayout implements Layout, LongTask {
     private Graph graph;
     private boolean firstIteration = true;
 
-    private String fileWriterName="FR_layout\\OpenOrd"+"Layout"+".csv";
+    private String fileWriterName="OpenOrd"+"Layout"+".csv";
 
     public OpenOrdLayout(LayoutBuilder builder) {
         this.builder = builder;
